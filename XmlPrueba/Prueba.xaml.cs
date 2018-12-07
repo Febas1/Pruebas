@@ -15,7 +15,6 @@ namespace XmlPrueba
         public string ruta;
         public string second;
         DataTable dt = new DataTable();
-        List<object> priList = new List<object>();
         List<object> totaList = new List<object>();
         List<object> produList = new List<object>();
         List<object> legaList = new List<object>();
@@ -26,15 +25,11 @@ namespace XmlPrueba
         XNamespace cac = "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2";
         public Prueba()
         {
-            InitializeComponent();
-            BuscarArchivo();
+            InitializeComponent();            
         }
 
         private void Llenar()
         {
-            int pri = 0;//11
-            int prod = 0;//5
-            int tot = 0;//6
             int cont = 0, con1 = 0, con2 = 0, con3 = 0, con4 = 0, conFina = 0;
             XElement xelement = XElement.Load(ruta);
 
@@ -44,6 +39,8 @@ namespace XmlPrueba
             var cantidad = from el in xelement.Elements(fe + "InvoiceLine").Elements(cbc + "InvoicedQuantity") select el;
             var description = from el in xelement.Elements(fe + "InvoiceLine").Elements(fe + "Item").Elements(cbc + "Description") select el;
             var valUnit = from el in xelement.Elements(fe + "InvoiceLine").Elements(fe + "Price").Elements(cbc + "PriceAmount") select el;
+            var IVA = from el in xelement.Elements(fe + "TaxTotal").Elements(fe + "TaxSubtotal").Elements(cbc+"Percent") select el;
+            object iva = new object();
             dt.Columns.Add("#");
             dt.Columns.Add("Codigo");
             dt.Columns.Add("Cantidad");
@@ -64,6 +61,10 @@ namespace XmlPrueba
             object[] valunitArray = new object[cont];
             foreach (var item in codigo)
             {
+                if (item.Value = )
+                {
+
+                }
                 codigoArray[con1] = item.Value;
                 con1 += 1;
             }
@@ -82,9 +83,13 @@ namespace XmlPrueba
                 valunitArray[con4] = item.Value;
                 con4 += 1;
             }
+            foreach (var item in IVA)
+            {
+                iva = item.Value;
+            }
             foreach (var item in unique)
             {
-                dt.Rows.Add("sos", codigoArray[conFina], cantidadArrray[conFina], descripcionArray[conFina], valunitArray[conFina]);
+                dt.Rows.Add("sos", codigoArray[conFina], cantidadArrray[conFina], descripcionArray[conFina], valunitArray[conFina], "IVA", iva, "Impuesto", "Descuento", "Valor Total");
                 conFina += 1;
             }
             foreach (var item in sub)
@@ -128,11 +133,6 @@ namespace XmlPrueba
                 {
                     Console.WriteLine("legal :" + item.Value);
                     legaList.Add(item.Value);
-                }
-                foreach (var item in priNod)
-                {
-                    Console.WriteLine("Primario :" + item.Value);
-                    priList.Add(item.Value);
                 }
                 foreach (XElement el in producto)
                 {
@@ -232,6 +232,11 @@ namespace XmlPrueba
                 ruta = filename;
             }
             LeerXML();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            BuscarArchivo();
         }
     }
 }

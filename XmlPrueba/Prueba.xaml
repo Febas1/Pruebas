@@ -40,6 +40,7 @@
             <TextBox IsReadOnly="True" Margin="5" Grid.Column="1" Grid.Row="3" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" Name="DirTXT"/>
             <TextBlock Margin="5" Text="Telefonos :" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="4"/>
             <TextBox IsReadOnly="True" Margin="5" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Stretch" Name="TelTXT"/>
+            <Button Content="Llenar" HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" Cursor="Hand"/>
         </Grid>
         <Grid Grid.Row="0" Grid.Column="1" Margin="5">
 
