@@ -1,0 +1,19 @@
+﻿<Window x:Class="ses.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ses"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TextBlock Margin="15" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="32">PRUEBA GOOGLE SHEET CREACION</TextBlock>
+
+        <TextBox Name="BOxBusc" Margin="286,132,298,253" />
+        <Button Margin="15" VerticalAlignment="Center" Width="100" Height="50" HorizontalAlignment="Center" Click="Crear_Click" Content="Actualizar"/>
+       
+
+
+
+    </Grid>
+</Window>
