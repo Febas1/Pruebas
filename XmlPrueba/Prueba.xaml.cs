@@ -33,16 +33,17 @@ namespace XmlPrueba
         private void Llenar()
         {
             int pri = 0;//11
-            int val = 0;//14
+            int prod = 0;//5
             int tot = 0;//6
+            int cont = 0, con1 = 0, con2 = 0, con3 = 0, con4 = 0, conFina = 0;
             XElement xelement = XElement.Load(ruta);
-            object[] carga = new object[9];
+
             var unique = from el in xelement.Elements(fe + "InvoiceLine") select el;
             var sub = from el in xelement.Elements(fe + "TaxTotal").Elements().Elements() select el;
             var codigo = from el in xelement.Elements(fe + "InvoiceLine").Descendants(cbc + "ID") select el;
-            //Seguir en la modificacion de la grid, desde cantidad
-            var description = from el in xelement.Elements(fe + "InvoiceLine").Elements(fe + "Item").Elements(cbc +"Description") select el;
-
+            var cantidad = from el in xelement.Elements(fe + "InvoiceLine").Elements(cbc + "InvoicedQuantity") select el;
+            var description = from el in xelement.Elements(fe + "InvoiceLine").Elements(fe + "Item").Elements(cbc + "Description") select el;
+            var valUnit = from el in xelement.Elements(fe + "InvoiceLine").Elements(fe + "Price").Elements(cbc + "PriceAmount") select el;
             dt.Columns.Add("#");
             dt.Columns.Add("Codigo");
             dt.Columns.Add("Cantidad");
@@ -53,26 +54,44 @@ namespace XmlPrueba
             dt.Columns.Add("Impuesto");
             dt.Columns.Add("Descuento");
             dt.Columns.Add("Valor Total");
+            foreach (var el in unique)
+            {
+                cont += 1;
+            }
+            object[] codigoArray = new object[cont];
+            object[] cantidadArrray = new object[cont];
+            object[] descripcionArray = new object[cont];
+            object[] valunitArray = new object[cont];
             foreach (var item in codigo)
             {
-                carga[1] = item.Value;
+                codigoArray[con1] = item.Value;
+                con1 += 1;
+            }
+            foreach (var item in cantidad)
+            {
+                cantidadArrray[con2] = item.Value;
+                con2 += 1;
             }
             foreach (var item in description)
             {
-                carga[3] = item.Value;
+                descripcionArray[con3] = item.Value;
+                con3 += 1;
+            }
+            foreach (var item in valUnit)
+            {
+                valunitArray[con4] = item.Value;
+                con4 += 1;
+            }
+            foreach (var item in unique)
+            {
+                dt.Rows.Add("sos", codigoArray[conFina], cantidadArrray[conFina], descripcionArray[conFina], valunitArray[conFina]);
+                conFina += 1;
             }
             foreach (var item in sub)
             {
                 subList.Add(item.Value);
             }
-            foreach (var item in unique)
-            {
-                //dt.Rows.Add("sos", carga[1], "Cantidad", carga[3], "Valor Unitario");
-                dt.Rows.Add(priList[(0 + pri)], produList[(12 + val)], priList[(2 + pri)], produList[(10 + val)], produList[(13 + val)], "IVA", totaList[(3 + tot)], totaList[(2 + tot)], produList[(6 + val)], priList[(3 + pri)]);
-                pri += 11;
-                val += 14;
-                tot += 6;
-            }
+            //dt.Rows.Add(priList[(0 + pri)], produList[(12 + val)], priList[(2 + pri)], produList[(10 + val)], produList[(13 + val)], "IVA", totaList[(3 + tot)], totaList[(2 + tot)], produList[(6 + val)], priList[(3 + pri)]);
             DataProducto.AutoGenerateColumns = true;
             DataProducto.ItemsSource = dt.DefaultView;
             TBImpo.Text = Convert.ToString(subList[0]);
@@ -171,25 +190,25 @@ namespace XmlPrueba
                 {
                     NombreTXT.Text = Convert.ToString(rNameList[0]);
                 }
-                if (rNameCont == 1)
-                {
-                    if (Convert.ToString(faNameList[0]) != "")
-                    {
-                        NombreTXT2.Text = Convert.ToString(fiNameList[0] + " " + faNameList[0]);
-                    }
-                    else
-                    {
-                        NombreTXT2.Text = Convert.ToString(fiNameList[0]);
-                    }
-                }
-                else
-                {
-                    NombreTXT2.Text = Convert.ToString(rNameList[1]);
-                }
+                //if (rNameCont == 1)
+                //{
+                //    if (Convert.ToString(faNameList[0]) != "")
+                //    {
+                //        NombreTXT2.Text = Convert.ToString(fiNameList[0] + " " + faNameList[0]);
+                //    }
+                //    else
+                //    {
+                //        NombreTXT2.Text = Convert.ToString(fiNameList[0]);
+                //    }
+                //}
+                //else
+                //{
+                //    NombreTXT2.Text = Convert.ToString(rNameList[1]);
+                //}
                 DirTXT.Text = (Convert.ToString(direList[0] + " - " + cityList[0]));
                 DirTXT2.Text = (Convert.ToString(direList[1] + " - " + cityList[1]));
-                TelTXT.Text = (Convert.ToString(teleList[0]));
-                TelTXT2.Text = (Convert.ToString(teleList[1]));
+                //TelTXT.Text = (Convert.ToString(teleList[0]));
+                //TelTXT2.Text = (Convert.ToString(teleList[1]));
                 Llenar();
 
             }
@@ -201,9 +220,11 @@ namespace XmlPrueba
 
         private void BuscarArchivo()
         {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.DefaultExt = ".xml";
-            dlg.Filter = "XML Files (*.xml)|*.xml";
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
+            {
+                DefaultExt = ".xml",
+                Filter = "XML Files (*.xml)|*.xml"
+            };
             Nullable<bool> result = dlg.ShowDialog();
             if (result == true)
             {
