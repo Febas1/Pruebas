@@ -25,22 +25,7 @@ namespace XmlPrueba
         XNamespace cac = "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2";
         public Prueba()
         {
-            InitializeComponent();            
-        }
-
-        private void Llenar()
-        {
-            int cont = 0, con1 = 0, con2 = 0, con3 = 0, con4 = 0, conFina = 0;
-            XElement xelement = XElement.Load(ruta);
-
-            var unique = from el in xelement.Elements(fe + "InvoiceLine") select el;
-            var sub = from el in xelement.Elements(fe + "TaxTotal").Elements().Elements() select el;
-            var codigo = from el in xelement.Elements(fe + "InvoiceLine").Descendants(cbc + "ID") select el;
-            var cantidad = from el in xelement.Elements(fe + "InvoiceLine").Elements(cbc + "InvoicedQuantity") select el;
-            var description = from el in xelement.Elements(fe + "InvoiceLine").Elements(fe + "Item").Elements(cbc + "Description") select el;
-            var valUnit = from el in xelement.Elements(fe + "InvoiceLine").Elements(fe + "Price").Elements(cbc + "PriceAmount") select el;
-            var IVA = from el in xelement.Elements(fe + "TaxTotal").Elements(fe + "TaxSubtotal").Elements(cbc+"Percent") select el;
-            object iva = new object();
+            InitializeComponent();
             dt.Columns.Add("#");
             dt.Columns.Add("Codigo");
             dt.Columns.Add("Cantidad");
@@ -51,21 +36,41 @@ namespace XmlPrueba
             dt.Columns.Add("Impuesto");
             dt.Columns.Add("Descuento");
             dt.Columns.Add("Valor Total");
+        }
+
+        private void Llenar()
+        {
+            dt.Clear();
+
+            int cont = 0, con1 = 0, con2 = 0, con3 = 0, con4 = 0,con9 = 0, conFina = 0;
+            XElement xelement = XElement.Load(ruta);
+
+            var unique = from el in xelement.Elements(fe + "InvoiceLine") select el;
+            var sub = from el in xelement.Elements(fe + "TaxTotal").Elements().Elements() select el;            
+            var codigo = from el in xelement.Elements(fe + "InvoiceLine").Descendants(cbc + "ID") select el;
+            var cantidad = from el in xelement.Elements(fe + "InvoiceLine").Elements(cbc + "InvoicedQuantity") select el;
+            var description = from el in xelement.Elements(fe + "InvoiceLine").Elements(fe + "Item").Elements(cbc + "Description") select el;
+            var valUnit = from el in xelement.Elements(fe + "InvoiceLine").Elements(fe + "Price").Elements(cbc + "PriceAmount") select el;
+            var IVA = from el in xelement.Elements(fe + "TaxTotal").Elements(fe + "TaxSubtotal").Elements(cbc+"Percent") select el;
+            object iva = new object();
+            var total = from el in xelement.Elements(fe + "InvoiceLine").Elements(cbc + "LineExtensionAmount") select el;
+
             foreach (var el in unique)
             {
                 cont += 1;
             }
+            object[] sharpArray = new object[cont];
             object[] codigoArray = new object[cont];
             object[] cantidadArrray = new object[cont];
             object[] descripcionArray = new object[cont];
             object[] valunitArray = new object[cont];
+            object[] totalArray = new object[cont];
+
             foreach (var item in codigo)
             {
-                if (item.Value = )
-                {
-
-                }
-                codigoArray[con1] = item.Value;
+                string[] textos = item.Value.Split('_');
+                codigoArray[con1] = textos[1];
+                sharpArray[con1] = textos[0];
                 con1 += 1;
             }
             foreach (var item in cantidad)
@@ -87,9 +92,14 @@ namespace XmlPrueba
             {
                 iva = item.Value;
             }
+            foreach (var item in total)
+            {
+                totalArray[con9] = item.Value;
+                con9 += 1;
+            }
             foreach (var item in unique)
             {
-                dt.Rows.Add("sos", codigoArray[conFina], cantidadArrray[conFina], descripcionArray[conFina], valunitArray[conFina], "IVA", iva, "Impuesto", "Descuento", "Valor Total");
+                dt.Rows.Add(sharpArray[conFina], codigoArray[conFina], cantidadArrray[conFina], descripcionArray[conFina], valunitArray[conFina], "IVA", iva, "Impuesto", "Descuento", totalArray[conFina]);
                 conFina += 1;
             }
             foreach (var item in sub)
@@ -109,7 +119,7 @@ namespace XmlPrueba
             {
                 int rNameCont = 0;
                 XElement xelement = XElement.Load(ruta);
-                var id = xelement.Descendants(cbc + "ID");
+                var proName = xelement.Descendants(cbc + "RegistrationName");
                 var city = xelement.Descendants(cbc + "CityName");
                 var dire = xelement.Descendants(cbc + "Line");
                 var tele = xelement.Descendants(cbc + "Telephone");
@@ -122,7 +132,7 @@ namespace XmlPrueba
                 var producto = from el in xelement.Elements(fe + "InvoiceLine").Elements().Elements() select el;
                 var total = from el in xelement.Elements(fe + "InvoiceLine").Elements().Elements().Elements() select el;
                 var legal = from el in xelement.Elements(fe + "LegalMonetaryTotal").Elements() select el;
-                List<object> idList = new List<object>();
+                
                 List<object> cityList = new List<object>();
                 List<object> direList = new List<object>();
                 List<object> teleList = new List<object>();
@@ -131,22 +141,15 @@ namespace XmlPrueba
                 List<object> faNameList = new List<object>();
                 foreach (var item in legal)
                 {
-                    Console.WriteLine("legal :" + item.Value);
                     legaList.Add(item.Value);
                 }
                 foreach (XElement el in producto)
                 {
-                    Console.WriteLine("Valor :" + el.Value);
                     produList.Add(el.Value);
                 }
                 foreach (var item in total)
                 {
-                    Console.WriteLine("total :" + item.Value);
                     totaList.Add(item.Value);
-                }
-                foreach (var item in id)
-                {
-                    idList.Add(item.Value);
                 }
                 foreach (var item in city)
                 {
@@ -173,8 +176,6 @@ namespace XmlPrueba
                 {
                     faNameList.Add(item.Value);
                 }
-                NITTXT.Text = Convert.ToString(idList[2]);
-                NITTXT2.Text = Convert.ToString(idList[3]);
                 if (rNameCont == 0)
                 {
                     if (Convert.ToString(faNameList[0]) != "")
