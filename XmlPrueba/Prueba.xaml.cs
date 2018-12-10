@@ -68,9 +68,9 @@ namespace XmlPrueba
 
             foreach (var item in codigo)
             {
-                //string[] textos = item.Value.Split('_');
-                //codigoArray[con1] = textos[1];
-                //sharpArray[con1] = textos[0];
+                string[] textos = item.Value.Split('_');
+                codigoArray[con1] = textos[1];
+                sharpArray[con1] = textos[0];
                 con1 += 1;
             }
             foreach (var item in cantidad)
