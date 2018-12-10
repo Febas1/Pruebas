@@ -66,9 +66,9 @@ namespace XmlPrueba
             object[] totArray = new object[cont];
             foreach (var item in codigo)
             {
-                object[] textos = item.Value.Split('_');
-                sharpArray[con1] = textos[0];
-                codigoArray[con1] = textos[1];
+                //string[] textos = item.Value.Split('_');
+                //codigoArray[con1] = textos[1];
+                //sharpArray[con1] = textos[0];
                 con1 += 1;
             }
             foreach (var item in cantidad)
