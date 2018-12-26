@@ -6,17 +6,291 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
 
-        <NavigationView x:Name="nvSample">
-            <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Play" Content="Menu Item1" Tag="SamplePage1" />
-                <NavigationViewItem Icon="Save" Content="Menu Item2" Tag="SamplePage2" />
-                <NavigationViewItem Icon="Refresh" Content="Menu Item3" Tag="SamplePage3" />
-                <NavigationViewItem Icon="Download" Content="Menu Item4" Tag="SamplePage4" />
-            </NavigationView.MenuItems>
-            <Frame x:Name="contentFrame"/>
-        </NavigationView>
 
-    </Grid>
+    <!--<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="WhiteSmoke" Grid.Row="4">
+
+        <Border x:Name="root3" Width="290"  Background="White" BorderBrush="#FFE6E6E6"  HorizontalAlignment="Left">
+            <Border.Effect>
+                <DropShadowEffect Direction="171" ShadowDepth="1" BlurRadius="5" Color="Black"/>
+            </Border.Effect>
+            <Grid x:Name="GridRoot3" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Background="Indigo" Margin="10,-1,0,0" HorizontalAlignment="Left">
+                    <TextBlock Text="Importar" Margin="10,5,10,5" Foreground="White" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI Bold"/>
+                </Border>
+                <Grid Grid.Row="1" Margin="0,5,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <sa:ButtonSia  Name="BtnXML" Tag="51" AccesoId="10" Grid.Row="0" Grid.Column="1"   Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=BtnXML}" >
+                        <StackPanel Orientation="Horizontal">
+                            <Image Name="ImageXML" Source="{Binding  _Config.PathImg6}" Height="30" Margin="-26,0,0,0" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Importar XML "   VerticalAlignment="Center" />
+                        </StackPanel>
+                    </sa:ButtonSia>
+
+                </Grid>
+
+
+            </Grid>
+        </Border>
+    </Grid>-->
+
+
+    <!--<Grid Name="MainPanel" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:SiaSf="http://schemas.syncfusion.com/wpf" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sa="clr-namespace:SiasoftApp;assembly=SiasoftApp" xmlns:Notification="clr-namespace:Syncfusion.Windows.Controls.Notification;assembly=Syncfusion.Tools.WPF"  xmlns:sync="clr-namespace:Syncfusion.UI.Xaml.Grid;assembly=Syncfusion.SfGrid.WPF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"   xmlns:chart="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"  xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"   xmlns:si="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"   Margin="1,1,1,1" >
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding LoadCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}, AncestorLevel = 1 }}"/>
+            </i:EventTrigger>
+            <i:EventTrigger EventName="Unloaded" >
+                <i:InvokeCommandAction Command="{Binding UnLoadCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}, AncestorLevel = 1 }}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+
+        <Grid  HorizontalAlignment="Center" VerticalAlignment="Center" Background="WhiteSmoke" Grid.Row="0" >
+
+
+            <Border x:Name="root" Width="290"  Background="White" BorderBrush="#FFE6E6E6"  HorizontalAlignment="Left">
+                <Border.Effect>
+                    <DropShadowEffect Direction="171" ShadowDepth="1" BlurRadius="5" Color="Black"/>
+                </Border.Effect>
+                <Grid x:Name="GridRoot" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Border Background="Indigo" Margin="10,1,0,0" HorizontalAlignment="Left">
+                        <TextBlock x:Name="TituloNotasDoc" Text="Notas del documento" Margin="10,5,10,5" Foreground="White" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI Bold"/>
+                    </Border>
+                    <Grid Grid.Row="1" Margin="0,5,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="25"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Row="0" HorizontalAlignment="Left" x:Name="TextNota" VerticalAlignment="Top" Height="145" Width="280" Focusable="False"  FontFamily="Segoe UI Bold" Text="{Binding _Config.Notas}"/>
+                        <sa:ButtonSia Grid.Row="1" x:Name="BtnPanelNota" Style="{x:Null}" Height="20" Width="150" Content="Nueva Nota" Foreground="DodgerBlue"  Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=BtnPanelNota}"/>
+
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid  HorizontalAlignment="Center" VerticalAlignment="Center" Background="WhiteSmoke" Grid.Row="2">
+
+            <Border x:Name="root1" Width="290"  Background="White" BorderBrush="#FFE6E6E6"  HorizontalAlignment="Left">
+                <Border.Effect>
+                    <DropShadowEffect Direction="171" ShadowDepth="1" BlurRadius="5" Color="Black"/>
+                </Border.Effect>
+                <Grid x:Name="GridRoot1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Border Background="Indigo" Margin="10,-1,0,0" HorizontalAlignment="Left">
+                        <TextBlock Text="Digitalizacion" Margin="10,5,10,5" Foreground="White" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI Bold"/>
+                    </Border>
+                    <Grid Grid.Row="1" Margin="0,5,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="History Textbox" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3"/>
+                        <TextBlock Text="[Type any word and hit enter to save the word in history. Words available in history will assist you while typing.]" 
+                               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3" Grid.Row="2" TextWrapping="Wrap" Width="250" FontStyle="Italic"/>
+
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid  HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="WhiteSmoke" Grid.Row="4">
+
+            <Border x:Name="root2" Width="290"  Background="White" BorderBrush="#FFE6E6E6"  HorizontalAlignment="Left">
+                <Border.Effect>
+                    <DropShadowEffect Direction="171" ShadowDepth="1" BlurRadius="5" Color="Black"/>
+                </Border.Effect>
+                <Grid x:Name="GridRoot2" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Border Background="Indigo" Margin="10,-1,0,0" HorizontalAlignment="Left">
+                        <TextBlock Text="Maestros y Consultas" Margin="10,5,10,5" Foreground="White" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI Bold"/>
+                    </Border>
+                    <Grid Grid.Row="1" Margin="0,5,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type sa:ButtonSia}">
+                                <Setter Property="Background" Value="#00a7ee" />
+                                <Setter Property="Foreground" Value="Blue" />
+                                <Setter Property="FontSize" Value="11" />
+                                <Setter Property="Width" Value="135" />
+                                <Setter Property="Height" Value="40" />
+                                <Setter Property="SnapsToDevicePixels" Value="True" />
+                                <Setter Property="Margin" Value="0,0,0,0" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                <Grid>
+                                                    <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" />
+                                                </Grid>
+                                            </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="Orange" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                </Trigger>
+                                                <Trigger Property="Button.IsFocused" Value="True">
+                                                    <Setter Property="Foreground" Value="#373737"/>
+                                                </Trigger>
+
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter Property="Background" Value="OrangeRed" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Grid.Resources>
+
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="140"/>
+                        </Grid.ColumnDefinitions>
+                        <sa:ButtonSia  Name="BtnProductos" Tag="51" AccesoId="96" Grid.Row="0" Grid.Column="0"   Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=BtnProductos}" >
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="ImageProductos" Source="{Binding  _Config.PathImg19}" Height="30" Margin="-26,0,0,0" HorizontalAlignment="Left"   />
+                                <TextBlock Text="Productos "   VerticalAlignment="Center" />
+                            </StackPanel>
+                        </sa:ButtonSia>
+                        <sa:ButtonSia  Name="BtnLineas" Tag="51" AccesoId="10" Grid.Row="0" Grid.Column="1"   Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=BtnLineas}" >
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="ImageLineas" Source="{Binding  _config.PathImg12}" Height="30" Margin="-26,0,0,0" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Lineas "   VerticalAlignment="Center" />
+                            </StackPanel>
+                        </sa:ButtonSia>
+                        <sa:ButtonSia  Name="BtnKardex" Tag="51" AccesoId="10" Grid.Row="1" Grid.Column="0"   Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=BtnKardex}" >
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="ImageKardex" Source="{Binding  _Config.PathImg1}" Height="30" Margin="-26,0,0,0" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Kardes "   VerticalAlignment="Center" />
+                            </StackPanel>
+                        </sa:ButtonSia>
+                        <sa:ButtonSia  Name="BtnSaldos" Tag="51" AccesoId="10" Grid.Row="1" Grid.Column="1"   Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=BtnProductos}" >
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="ImageSaldos" Source="{Binding  _Config.PathImg101}" Height="30" Margin="-30,0,0,0" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Saldos Inventarios "   VerticalAlignment="Center" />
+                            </StackPanel>
+                        </sa:ButtonSia>
+                        <sa:ButtonSia  Name="BtnCompras" Tag="51" AccesoId="10" Grid.Row="2" Grid.Column="0"   Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=BtnProductos}" >
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="ImageCompras" Source="{Binding  _Config.PathImg102}" Height="25" Margin="-26,0,0,0" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Compras "   VerticalAlignment="Center" />
+                            </StackPanel>
+                        </sa:ButtonSia>
+                        <sa:ButtonSia  Name="BtnVentas" Tag="51" AccesoId="10" Grid.Row="2" Grid.Column="1"   Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=BtnVentas}" >
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="ImageVentas" Source="{Binding  _Config.PathImg6}" Height="30" Margin="-26,0,0,0" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Analisis Ventas "   VerticalAlignment="Center" />
+                            </StackPanel>
+                        </sa:ButtonSia>
+
+
+                    </Grid>
+                </Grid>
+            </Border>
+
+
+        </Grid>
+        <Grid Grid.Row="8"  Background="Silver">
+            <TextBlock HorizontalAlignment="Center"
+  Name="MyFadingText"
+  Margin="2" 
+   Height="25" FontSize="18" FontWeight="Bold" Foreground="Maroon"  Text="{Binding _Config.MSG}">
+ 
+
+  --><!-- Animates the text block's opacity. --><!--
+                <TextBlock.Triggers>
+                    <EventTrigger RoutedEvent="TextBlock.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+            Storyboard.TargetName="MyFadingText" 
+            Storyboard.TargetProperty="(TextBlock.Opacity)"
+            From="1.0" To="0.0" Duration="0:0:2" 
+            AutoReverse="True" RepeatBehavior="Forever" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </TextBlock.Triggers>
+            </TextBlock>
+        </Grid>
+
+
+
+
+    </Grid>-->
+
+
+
+
 </Window>

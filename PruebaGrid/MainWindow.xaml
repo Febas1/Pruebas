@@ -12,8 +12,8 @@
         <Grid Margin="15">
             <Border BorderThickness="2" BorderBrush="Black"/>
             <ScrollViewer HorizontalScrollBarVisibility="Visible">
-                <sf:GridDataControl Name="rutt">
-                </sf:GridDataControl>
+                <sf:SfDataGrid Name="rutt" AutoGenerateColumns="True">
+                </sf:SfDataGrid>
             </ScrollViewer>
         </Grid>
 

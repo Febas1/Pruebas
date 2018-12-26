@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Xml.Linq;
 
@@ -34,7 +35,6 @@ namespace XmlPrueba
             dt.Columns.Add("Valor unitario");
             dt.Columns.Add("Tipo impuesto");
             dt.Columns.Add("% Impuesto");
-            dt.Columns.Add("Descuento");
             dt.Columns.Add("Valor Total");
         }
 
@@ -53,7 +53,10 @@ namespace XmlPrueba
             var IVA = from el in xelement.Elements(fe + "TaxTotal").Elements(fe + "TaxSubtotal").Elements(cbc + "Percent") select el;
             var valTot = from el in xelement.Elements(fe + "InvoiceLine").Elements(cbc + "LineExtensionAmount") select el;
             var totalPago = xelement.Descendants(cbc + "PayableAmount");
-                                             
+            var totalDes = xelement.Descendants(cbc + "AllowanceTotalAmount").FirstOrDefault();
+            var numFac = xelement.Descendants(cbc + "ID").FirstOrDefault();
+            var fechFac = xelement.Descendants(cbc + "IssueDate").FirstOrDefault();
+
             foreach (var el in unique)
             {
                 cont += 1;
@@ -64,11 +67,18 @@ namespace XmlPrueba
             object[] descripcionArray = new object[cont];
             object[] valunitArray = new object[cont];
             object[] totArray = new object[cont];
+            FacTXT.Text = numFac.Value;
+            FechaTXT.Text = fechFac.Value;
+            TDes.Text = totalDes.Value;
             foreach (var item in codigo)
             {
-                //string[] textos = item.Value.Split('_');
-                //codigoArray[con1] = textos[1];
-                //sharpArray[con1] = textos[0];
+                if (Regex.Matches(item.Value, "_").Count == 1)
+                {
+                    Console.WriteLine("Sirve");
+                }
+                string[] textos = item.Value.Split('_');
+                codigoArray[con1] = textos[1];
+                sharpArray[con1] = textos[0];
                 con1 += 1;
             }
             foreach (var item in cantidad)
@@ -97,8 +107,8 @@ namespace XmlPrueba
             }
             foreach (var item in unique)
             {
-                dt.Rows.Add(sharpArray[conFina], codigoArray[conFina], cantidadArrray[conFina], descripcionArray[conFina], valunitArray[conFina], "IVA", iva, "Descuento", totArray[conFina]);
-                conFina += 1;
+                dt.Rows.Add(sharpArray[conFina], codigoArray[conFina], cantidadArrray[conFina], descripcionArray[conFina], valunitArray[conFina], "IVA", iva, totArray[conFina]);
+                conFina += 1;//En el xml no se encuentran datos del descuento por producto, solo el total de el descuento al final de la factura en pdf
             }
             foreach (var item in sub)
             {
@@ -106,9 +116,8 @@ namespace XmlPrueba
             }
             foreach (var item in totalPago)
             {
-                TxtTotal.Text += (" "+item.Value);
+                TxtTotal.Text += (" " + item.Value);
             }
-            //dt.Rows.Add(priList[(0 + pri)], produList[(12 + val)], priList[(2 + pri)], produList[(10 + val)], produList[(13 + val)], "IVA", totaList[(3 + tot)], totaList[(2 + tot)], produList[(6 + val)], priList[(3 + pri)]);
             DataProducto.AutoGenerateColumns = true;
             DataProducto.ItemsSource = dt.DefaultView;
             string sTotal = Convert.ToString(subList[0]);
@@ -136,11 +145,8 @@ namespace XmlPrueba
                 var priNod = from el in xelement.Elements(fe + "InvoiceLine").Elements() select el;
                 var producto = from el in xelement.Elements(fe + "InvoiceLine").Elements().Elements() select el;
                 var total = from el in xelement.Elements(fe + "InvoiceLine").Elements().Elements().Elements() select el;
-                var legal = from el in xelement.Elements(fe + "LegalMonetaryTotal").Elements() select el;
                 List<object> idList = new List<object>();
                 List<object> cityList = new List<object>();
-                List<object> direList = new List<object>();
-                List<object> teleList = new List<object>();
                 foreach (var item in proID)//Nombre proveedor
                 {
                     NombreTXT.Text = item.Value;
@@ -165,10 +171,6 @@ namespace XmlPrueba
                 {
                     DirTXT2.Text = item.Value;
                 }
-                foreach (var item in legal)
-                {
-                    legaList.Add(item.Value);
-                }
                 foreach (XElement el in producto)
                 {
                     produList.Add(el.Value);
@@ -180,13 +182,6 @@ namespace XmlPrueba
                 foreach (var item in city)
                 {
                     cityList.Add(item.Value);
-                }
-                foreach (var item in dire)
-                {
-                }
-                foreach (var item in tele)
-                {
-                    teleList.Add(item.Value);
                 }
                 Llenar();
             }
@@ -216,5 +211,14 @@ namespace XmlPrueba
         {
             BuscarArchivo();
         }
+
+
+
+        private void BTNdocumento_Click(object sender, RoutedEventArgs e)
+        {
+            string validarNumNit = "select * from ";
+        }
     }
 }
+
+

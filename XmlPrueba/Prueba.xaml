@@ -6,15 +6,18 @@
         xmlns:local="clr-namespace:XmlPrueba"
         mc:Ignorable="d"
         Title="Prueba" Height="450" Width="1000">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="180"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
+
         <Grid Grid.Row="0" Grid.Column="0" Margin="5">
 
             <Grid.RowDefinitions>
@@ -38,8 +41,21 @@
             <TextBox IsReadOnly="True" Margin="5" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Name="NITTXT"/>
             <TextBlock  Margin="5" Text="Direccion :" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="3"/>
             <TextBox IsReadOnly="True" Margin="5" Grid.Column="1" Grid.Row="3" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" Name="DirTXT"/>
+            <Grid Grid.Row="4" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock  Margin="5" Text="# Factura :" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <TextBox IsReadOnly="True" Margin="5" Grid.Column="1" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" Name="FacTXT"/>
+                <TextBlock  Margin="5" Text="Fecha de factura : " Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <TextBox IsReadOnly="True" Margin="5" Grid.Column="3" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" Name="FechaTXT"/>
+            </Grid>
             <Button Content="Llenar" HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" Cursor="Hand"/>
         </Grid>
+
         <Grid Grid.Row="0" Grid.Column="1" Margin="5">
 
             <Grid.RowDefinitions>
@@ -64,6 +80,7 @@
             <TextBlock Margin="5" Text="Direccion :" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="3"/>
             <TextBox IsReadOnly="True" Margin="5" Grid.Column="1" Grid.Row="3" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" Name="DirTXT2"/>
         </Grid>
+
         <Grid Grid.Row="1" Grid.ColumnSpan="2" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -92,11 +109,20 @@
                     <TextBlock Margin="5" Foreground="White" Text="Totales" VerticalAlignment="Center"/>
                 </Border>
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Subtotal:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBlock Name="Sotal" Grid.Row="1"  Text="{Binding Value, StringFormat=N2}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,8,6,5"/>
+                <TextBlock Name="Sotal" Grid.Row="1"  Text="{Binding Value, StringFormat=N2}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <TextBlock Name="txtIva" Grid.Row="2" Grid.Column="0" Text="IVA:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <TextBlock Name="TIVA" Grid.Row="2" Grid.Column="1" Text="" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Total Descuento : " VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <TextBlock Name="TDes" Grid.Row="3" Grid.Column="1" Text="" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <TextBlock Name="TxtTotal" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Text="TOTAL:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
             </Grid>
         </Grid>
+
+        <Grid Grid.Row="3" Background="Red" Grid.ColumnSpan="2">
+            <Button Name="BTNdocumento" Width="300" Content="Pasar a patalla de transacciones" Click="BTNdocumento_Click"/>
+        </Grid>
+
     </Grid>
+
+
 </Window>
